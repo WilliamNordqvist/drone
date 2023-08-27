@@ -54,7 +54,7 @@ export default function EditDrone({
     <div className="h-full flex flex-col justify-center items-center">
       <div
         onClick={() => router.back()}
-        className="absolute top-3 left-3 cursor-pointer"
+        className="absolute top-3 right-3 cursor-pointer"
       >
         <BackIcon />
       </div>

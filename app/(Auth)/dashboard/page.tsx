@@ -12,7 +12,7 @@ enum EnumTabTypes {
 export default function Dashboard() {
   return (
     <Tabs defaultValue={EnumTabTypes.OVERVIEW}>
-      <TabsList className="mb-10">
+      <TabsList className="mb-3 bg-black text-white">
         <TabsTrigger value={EnumTabTypes.OVERVIEW}>Overview</TabsTrigger>
         <TabsTrigger value={EnumTabTypes.MAP}>Map</TabsTrigger>
       </TabsList>

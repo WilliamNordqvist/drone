@@ -40,12 +40,12 @@ export const MapComponent = () => {
   }, []);
 
   return (
-    <div>
+    <div className="max-w-6xl">
       <Map
         {...viewState}
         onMove={(e) => setViewState(e.viewState)}
         mapboxAccessToken={process.env.NEXT_PUBLIC_MAP_BOX_KEY_TOKEN}
-        style={{ width: "100%", height: 800 }}
+        style={{ width: "100%", height: 750 }}
         mapStyle="mapbox://styles/mapbox/dark-v9"
       >
         {drones.map((drone) => {
