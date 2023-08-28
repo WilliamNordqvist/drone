@@ -7,11 +7,13 @@ import axios from "axios";
 type DroneContextType = {
   drones: Drone[];
   deleteDrone: (id: number) => void;
+  deleteDrones: (ids: number[]) => void;
 };
 
 const DroneContext = createContext<DroneContextType>({
   drones: [],
   deleteDrone: () => {},
+  deleteDrones: () => {},
 });
 
 export const DroneContextProvider = ({
@@ -19,9 +21,10 @@ export const DroneContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [doneContextState, setDroneContextState] = useState<DroneContextType>({
+  const [droneContextState, setDroneContextState] = useState<DroneContextType>({
     drones: [],
     deleteDrone: () => {},
+    deleteDrones: () => {},
   });
 
   const getDrones = async () => {
@@ -80,7 +83,24 @@ export const DroneContextProvider = ({
           await axios.delete("http://localhost/drones/" + id);
           const drones = await getDrones();
           setDroneContextState({
-            ...doneContextState,
+            ...droneContextState,
+            drones,
+          });
+        } catch (error) {
+          alert("Something went wrong");
+        }
+      },
+
+      deleteDrones: async (ids: number[]) => {
+        console.log({ droneContextState });
+        try {
+          await Promise.all(
+            ids.map((id) => axios.delete("http://localhost/drones/" + id))
+          );
+
+          const drones = await getDrones();
+          setDroneContextState({
+            ...droneContextState,
             drones,
           });
         } catch (error) {
@@ -91,7 +111,7 @@ export const DroneContextProvider = ({
   }, []);
 
   return (
-    <DroneContext.Provider value={doneContextState}>
+    <DroneContext.Provider value={droneContextState}>
       {children}
     </DroneContext.Provider>
   );

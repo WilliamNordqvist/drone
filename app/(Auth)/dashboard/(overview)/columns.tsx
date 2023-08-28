@@ -2,6 +2,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Drone } from "../../../types";
 import Link from "next/link";
 import { DeleteIcon, EditIcon } from "@/icons";
+import { Checkbox } from "@/components/ui/checkbox";
 
 export const GetColumns = ({
   deleteDrone,
@@ -9,6 +10,27 @@ export const GetColumns = ({
   deleteDrone: (id: number) => void;
 }): ColumnDef<Drone>[] => {
   const columns: ColumnDef<Drone>[] = [
+    {
+      accessorKey: "checkbox",
+
+      header: (props) => (
+        <Checkbox
+          checked={props.table.getIsAllPageRowsSelected()}
+          onCheckedChange={(value) =>
+            props.table.toggleAllPageRowsSelected(!!value)
+          }
+          aria-label="välj alla"
+        />
+      ),
+      cell: ({ row }) => (
+        <Checkbox
+          checked={row.getIsSelected()}
+          onCheckedChange={(value) => row.toggleSelected(!!value)}
+          aria-label="välj alla"
+        />
+      ),
+    },
+
     {
       accessorKey: "name",
       header: "Name",
